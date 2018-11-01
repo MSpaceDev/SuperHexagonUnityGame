@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour {
     {
         // Get player's score when game starts
         highscore = SaveLoadManager.instance.Load();
-
+        Debug.Log(highscore);
         highscoreText.text = "Best: " + highscore.ToString();
     }
 
@@ -57,7 +57,6 @@ public class GameManager : MonoBehaviour {
     {
         pressToPlayText.enabled = true;
         scoreText.text = "0";
-        score = 0;
 
         Spawner.instance.StopSpawning();
         foreach (GameObject g in GameObject.FindGameObjectsWithTag("Interactable"))
@@ -66,6 +65,7 @@ public class GameManager : MonoBehaviour {
         if (score > highscore)
             SaveLoadManager.instance.Save(score);
 
+        score = 0;
         gameStarted = false;
     }
 }
