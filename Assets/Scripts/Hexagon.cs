@@ -12,6 +12,7 @@ public class Hexagon : MonoBehaviour {
 
         if (transform.localScale.x < float.Epsilon)
         {
+            GameManager.instance.PlaySound(0);
             GameManager.instance.IncrementScore();
             Destroy(gameObject);
         }

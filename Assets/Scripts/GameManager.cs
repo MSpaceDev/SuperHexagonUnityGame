@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(AudioSource))]
 public class GameManager : MonoBehaviour {
 
     public static GameManager instance;
@@ -16,6 +17,10 @@ public class GameManager : MonoBehaviour {
     private int score;
     private int highscore;
 
+    // Audio
+    private AudioSource audioSource;
+    public AudioClip[] audioClips;
+
     private bool gameStarted;
 
     private void Awake()
@@ -28,9 +33,10 @@ public class GameManager : MonoBehaviour {
 
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+
         // Get player's score when game starts
         highscore = SaveLoadManager.instance.Load();
-        Debug.Log(highscore);
         highscoreText.text = "Best: " + highscore.ToString();
     }
 
@@ -67,5 +73,12 @@ public class GameManager : MonoBehaviour {
 
         score = 0;
         gameStarted = false;
+    }
+
+    public void PlaySound(int index)
+    {
+        audioSource.pitch = Random.Range(0.75f, 1.0f);
+        audioSource.clip = audioClips[index];
+        audioSource.PlayOneShot(audioSource.clip);
     }
 }
